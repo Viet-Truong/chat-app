@@ -1,0 +1,98 @@
+.wrapper {
+    position: relative;
+    height: 100vh;
+    background: var();
+}
+
+.inner-login {
+    display: flex;
+    position: absolute;
+    width: 60%;
+    min-height: 77.5%;
+    left: 20%;
+    top: 12%;
+    background: #FFFFFF;
+    box-shadow: -9px 4px 76px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.background {
+    width: 50%;
+    background: url(https://cdn.discordapp.com/attachments/951411070055104572/1045354635952656424/unknown.png);
+}
+
+.wrapper-form {
+    width: 50%;
+    padding: 10%;
+}
+.title {
+    display: flex;
+    flex-direction: column;
+    font-size: 4rem;
+
+    span {
+        margin-top: -5%;
+    }
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10%;
+}
+
+.input {
+    width: 100%;
+    margin-top: 20px;
+    .label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 2%;
+    }
+
+    input {
+        padding: 14px 20px;
+        gap: 10px;
+        width: 100%;
+        height: 47px;
+        border: 1px solid #5B5B5B;
+        border-radius: 8px;
+    }
+}
+
+.btn-signup {
+    width: 100%;
+    margin-top: 10%;
+    padding: 20px 0;
+    background: var(--primary);
+    color: var(--black-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.link-sign-in {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 1.2rem;
+    margin-top: 5px;
+
+    .sign-in {
+        margin-left: 5px;
+        font-size: 1.2rem;
+        padding: 0;
+        min-width: 0;
+        transition: ease-in-out .5s;
+        
+        &:hover{
+            color: var(--primary);
+        }
+    }
+}
