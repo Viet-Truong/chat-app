@@ -79,7 +79,7 @@ function Login() {
                                 <Button
                                     className={cx("sign-up")}
                                     text
-                                    to="/signUp"
+                                    to="/register"
                                 >
                                     Sign Up
                                 </Button>

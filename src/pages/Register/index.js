@@ -7,6 +7,9 @@ import styles from "./Register.module.scss";
 import Button from "../../components/Button";
 // import { authRegister } from "../../redux/authAction";
 // import config from "../../config";
+import { Facebook, Google } from "../../components/Icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 function SignUp() {
@@ -66,6 +69,28 @@ function SignUp() {
                                     Sign In
                                 </Button>
                             </div>
+                        </div>
+                        <div className={cx("social")}>
+                            <Button
+                                leftIcon={<Facebook />}
+                                rightIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                text
+                                className={cx("social-btn")}
+                            >
+                                Login with Facebook
+                            </Button>
+                            <Button
+                                leftIcon={<Google />}
+                                rightIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                text
+                                className={cx("social-btn")}
+                            >
+                                Login with Google
+                            </Button>
                         </div>
                     </form>
                 </div>
