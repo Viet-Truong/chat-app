@@ -5,6 +5,9 @@ import styles from "./Login.module.scss";
 // import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
+import { Facebook, Google } from "../../components/Icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 // import { authLogin } from "../../redux/authAction";
 // import config from "../../config";
 
@@ -81,6 +84,28 @@ function Login() {
                                     Sign Up
                                 </Button>
                             </div>
+                        </div>
+                        <div className={cx("social")}>
+                            <Button
+                                leftIcon={<Facebook />}
+                                rightIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                text
+                                className={cx("social-btn")}
+                            >
+                                Login with Facebook
+                            </Button>
+                            <Button
+                                leftIcon={<Google />}
+                                rightIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                text
+                                className={cx("social-btn")}
+                            >
+                                Login with Google
+                            </Button>
                         </div>
                     </form>
                 </div>
