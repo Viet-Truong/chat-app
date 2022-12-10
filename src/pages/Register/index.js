@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
 // import { useSelector, useDispatch } from "react-redux";
@@ -10,12 +10,14 @@ import Button from "../../components/Button";
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faFileImage } from "@fortawesome/free-regular-svg-icons";
 
 const cx = classNames.bind(styles);
 function SignUp() {
     // const { auth } = useSelector((state) => state.auth);
     // const dispatch = useDispatch();
     // const navigate = useNavigate();
+    const inputAvatarRef = useRef();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     // useEffect(() => {
@@ -55,12 +57,30 @@ function SignUp() {
                                 placeholder="Enter your password"
                             />
                         </div>
+                        <div className={cx("input")}>
+                            <label className={cx("label")} htmlFor="avatar">
+                                <FontAwesomeIcon
+                                    icon={faFileImage}
+                                    className={cx("icon-add-image")}
+                                />
+                                Avatar
+                            </label>
+                            <input
+                                ref={inputAvatarRef}
+                                style={{ display: "none" }}
+                                id="avatar"
+                                type="file"
+                                // value={password}
+                                // onChange={(e) => setPassword(e.target.value)}
+                                // placeholder="Enter your password"
+                            />
+                        </div>
                         <button className={cx("btn-signup")} onClick={submit}>
                             Sign Up
                         </button>
                         <div className={cx("link-sign-in")}>
                             <div className={cx("no-account")}>
-                                Have account?
+                                Have an account?
                                 <Button
                                     className={cx("sign-in")}
                                     to="/login"
