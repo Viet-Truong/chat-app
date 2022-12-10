@@ -30,3 +30,5 @@ const Image = forwardRef(
         );
     }
 );
+
+export default Image;

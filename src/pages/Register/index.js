@@ -5,12 +5,13 @@ import styles from "./Register.module.scss";
 // import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
+import Image from "../../components/Images";
 // import { authRegister } from "../../redux/authAction";
 // import config from "../../config";
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faFileImage } from "@fortawesome/free-regular-svg-icons";
+import image from "../../assets/images";
 
 const cx = classNames.bind(styles);
 function SignUp() {
@@ -20,11 +21,18 @@ function SignUp() {
     const inputAvatarRef = useRef();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [avatar, setAvatar] = useState(image.addImage);
     // useEffect(() => {
     //     if (auth) {
     //         navigate(config.routes.home);
     //     }
     // }, [navigate, auth]);
+
+    const handlePreviewAvatar = (e) => {
+        let file = e.target.files[0];
+        if (!file) return;
+        setAvatar(URL.createObjectURL(file));
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -59,11 +67,11 @@ function SignUp() {
                         </div>
                         <div className={cx("input")}>
                             <label className={cx("label")} htmlFor="avatar">
-                                <FontAwesomeIcon
-                                    icon={faFileImage}
+                                <Image
+                                    src={avatar}
                                     className={cx("icon-add-image")}
                                 />
-                                Avatar
+                                Add your avatar
                             </label>
                             <input
                                 ref={inputAvatarRef}
@@ -71,7 +79,7 @@ function SignUp() {
                                 id="avatar"
                                 type="file"
                                 // value={password}
-                                // onChange={(e) => setPassword(e.target.value)}
+                                onChange={handlePreviewAvatar}
                                 // placeholder="Enter your password"
                             />
                         </div>
