@@ -1,5 +1,20 @@
+import classnames from "classnames/bind";
+import styles from "./Home.module.scss";
+import Sidebar from "../../components/Sidebar/sidebar";
+import Chat from "../../components/Chat/chat";
+import Profile from "../../components/Profile/profile";
+
+const cx = classnames.bind(styles);
 function Home() {
-    return <h1>this is home</h1>;
+    return (
+        <div className={cx("wrapper")}>
+            <div className={cx("container")}>
+                <Sidebar />
+                <Chat />
+                <Profile />
+            </div>
+        </div>
+    );
 }
 
 export default Home;

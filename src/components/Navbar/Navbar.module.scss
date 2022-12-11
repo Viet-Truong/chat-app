@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2f2d52;
+    height: 70px;
+    padding: 10px;
+}
+
+.logo {
+    font-weight: 600;
+    color: var(--white-color);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+
+    .avatar {
+        width: 20px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .logout {
+        padding: 15px 40px;
+        background-color: #5d5b8d;
+        color: var(--white-color);
+        font-size: 1rem;
+        border: none;
+        margin-left: 5px;
+    }
+}
