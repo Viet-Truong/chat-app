@@ -10,7 +10,6 @@ function Message() {
             <div className={cx("message", "owner")}>
                 <div className={cx("message-info")}>
                     <Image src={""} className={cx("avatar")} />
-                    <span className={cx("message-time")}>Just now</span>
                 </div>
                 <div className={cx("message-content")}>
                     <p className={cx("message-p")}>Hello</p>
