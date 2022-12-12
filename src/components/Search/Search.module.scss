@@ -1,9 +1,8 @@
 .wrapper {
-
-}
-
-.container {
     border-bottom: 1px solid #ccc;
+}
+    
+.container {
 
     input {
         border: none;
@@ -20,8 +19,8 @@
 
 .user-chat {
     padding: 15px 10px;
-    // display: flex;
-    // align-items: center;
+    display: flex;
+    align-items: center;
     color: var(--white-color);
     gap: 10px;
     cursor: pointer;
@@ -34,7 +33,6 @@
         width: 30px;
         object-fit: cover;
         border-radius: 50%;
-        float: left;
     }
 
 }

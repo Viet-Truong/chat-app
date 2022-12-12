@@ -1,29 +1,23 @@
 import classNames from "classnames/bind";
-import styles from "./Search.module.scss";
+import styles from "./ListChat.module.scss";
 
 import Image from "../Images";
 
 const cx = classNames.bind(styles);
-function Search() {
+function ListChat() {
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("container")}>
-                <input
-                    type="text"
-                    className={cx("search")}
-                    placeholder="Find a user"
-                />
-            </div>
             <div className={cx("user-chat")}>
                 <div className={cx("user-avatar")}>
                     <Image src="" className={cx("avatar")} />
                 </div>
                 <div className={cx("user-chat-info")}>
-                    <span className={cx("user-name")}>Viet Truong</span>
+                    <p className={cx("user-name")}>Viet Truong</p>
+                    <p className={cx("user-last-chat")}>Hello</p>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Search;
+export default ListChat;
