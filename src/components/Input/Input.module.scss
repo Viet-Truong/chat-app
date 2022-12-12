@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background-color: var(--white-color);
+}
+
+.input {
+    font-size: 1.6rem;
+    margin-left: 20px;
+    width: 60%;
+    border: none;
+    outline: none;
+}
+
+.send {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .send-image {
+        margin-right: 10px;
+    }
+
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .btn-send {
+        margin: 0px 10px;
+        background-color: #8da4f1;
+        color: var(--white-color);
+    }
+}

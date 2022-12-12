@@ -2,3 +2,13 @@
     background-color: #2b2741;
     width: 50%;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 10px 20px;
+    background-color: #3e3c61;
+    color: var(--white-color);
+}
