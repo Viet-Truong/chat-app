@@ -1,3 +1,20 @@
+@mixin table {
+    @media screen and  (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and  (max-width: 480px) {
+        @content;
+    }
+}
+
+.wrapper {
+    overflow-y: scroll;
+    overflow-y: overlay;
+}
+
 .user-chat {
     padding: 15px 10px;
     display: flex;
@@ -20,6 +37,10 @@
 .user-name {
     font-size: 1.6rem;
     font-weight: 500;
+
+    @include table {
+        font-size: 1.4rem;
+    }
 }
 
 .user-last-chat {

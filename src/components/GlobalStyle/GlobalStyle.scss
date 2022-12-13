@@ -37,4 +37,18 @@ body {
     font-family: 'Roboto Mono', monospace;
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
+    overflow-y: overlay;
+}
+
+
+@mixin table {
+    @media screen and  (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and  (max-width: 480px) {
+        @content;
+    }
 }

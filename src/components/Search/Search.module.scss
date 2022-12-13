@@ -1,3 +1,15 @@
+@mixin table {
+    @media screen and  (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and  (max-width: 480px) {
+        @content;
+    }
+}
+
 .wrapper {
     border-bottom: 1px solid #ccc;
 }
@@ -34,5 +46,13 @@
         object-fit: cover;
         border-radius: 50%;
     }
-
 }
+
+.user-name {
+    font-size: 1.6rem;
+    
+    @include table {
+        font-size: 1.4rem;
+    }
+}
+

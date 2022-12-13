@@ -1,6 +1,26 @@
+@mixin table {
+    @media screen and  (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and  (max-width: 480px) {
+        @content;
+    }
+}
+
 .wrapper {
     background-color: #2b2741;
     width: 50%;
+
+    @include table {
+        width: 70%;
+    }
+
+    @include mobile {
+        display: none;
+    }
 }
 
 .header {

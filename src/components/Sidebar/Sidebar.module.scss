@@ -1,6 +1,22 @@
+@mixin table {
+    @media screen and  (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and  (max-width: 480px) {
+        @content;
+    }
+}
+
 .wrapper {
     background-color: #3e3c61;
-    width: 25%;
+    width: 30%;
+
+    @include mobile {
+        width: 100%;
+    }
 }
 
 .navbar {
