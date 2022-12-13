@@ -1,12 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
-// import { useSelector, useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+// import { refDb as ref, set } from "firebase/database";
+import { auth, storage, db } from "../../firebase/config";
 
 import Button from "../../components/Button";
 import Image from "../../components/Images";
-// import { authRegister } from "../../redux/authAction";
 // import config from "../../config";
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,18 +17,13 @@ import image from "../../assets/images";
 
 const cx = classNames.bind(styles);
 function SignUp() {
-    // const { auth } = useSelector((state) => state.auth);
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const inputAvatarRef = useRef();
+    const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [avatar, setAvatar] = useState(image.addImage);
-    // useEffect(() => {
-    //     if (auth) {
-    //         navigate(config.routes.home);
-    //     }
-    // }, [navigate, auth]);
+    const [error, setError] = useState(false);
 
     const handlePreviewAvatar = (e) => {
         let file = e.target.files[0];
@@ -34,9 +31,39 @@ function SignUp() {
         setAvatar(URL.createObjectURL(file));
     };
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-        // dispatch(authRegister({ email, password }));
+        try {
+            const result = createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            const storageRef = ref(storage, name);
+            const uploadTask = uploadBytesResumable(storageRef, avatar);
+            uploadTask.on(
+                (error) => {
+                    setError(true);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        async (downloadURL) => {
+                            await updateProfile(result.user, {
+                                name,
+                                photoURL: downloadURL,
+                            });
+                            // await set(refDb(db, "users/" + result.user.uid), {
+                            //     username: name,
+                            //     email: email,
+                            //     profile_picture: downloadURL,
+                            // });
+                        }
+                    );
+                }
+            );
+        } catch (error) {
+            setError(true);
+        }
     };
     return (
         <div className={cx("wrapper")}>
@@ -46,7 +73,16 @@ function SignUp() {
                     <h2 className={cx("title")}>
                         WELCOME <span>TO CHAT APP</span>
                     </h2>
-                    <form className={cx("form")}>
+                    <form className={cx("form")} onSubmit={submit}>
+                        <div className={cx("input")}>
+                            <label className={cx("label")}>Name</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Enter your name"
+                            />
+                        </div>
                         <div className={cx("input")}>
                             <label className={cx("label")}>Email</label>
                             <input
@@ -86,6 +122,11 @@ function SignUp() {
                         <button className={cx("btn-signup")} onClick={submit}>
                             Sign Up
                         </button>
+                        {error && (
+                            <span className={cx("error")}>
+                                Something went wrong
+                            </span>
+                        )}
                         <div className={cx("link-sign-in")}>
                             <div className={cx("no-account")}>
                                 Have an account?

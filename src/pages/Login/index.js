@@ -1,23 +1,32 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
-// import { useSelector, useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-// import { authLogin } from "../../redux/authAction";
-// import config from "../../config";
+import config from "../../config";
 
 const cx = classNames.bind(styles);
 function Login() {
-    // const { auth } = useSelector((state) => state.auth);
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
 
     // useEffect(() => {
     //     if (auth) {
@@ -27,7 +36,6 @@ function Login() {
 
     const submit = (e) => {
         e.preventDefault();
-        // dispatch(authLogin({ email, password }));
     };
     return (
         <div className={cx("wrapper")}>
