@@ -4,8 +4,8 @@ import styles from "./Register.module.scss";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-// import { refDb as ref, set } from "firebase/database";
 import { auth, storage, db } from "../../firebase/config";
+import { doc, setDoc } from "firebase/firestore";
 
 import Button from "../../components/Button";
 import Image from "../../components/Images";
@@ -52,11 +52,11 @@ function SignUp() {
                                 name,
                                 photoURL: downloadURL,
                             });
-                            // await set(refDb(db, "users/" + result.user.uid), {
-                            //     username: name,
-                            //     email: email,
-                            //     profile_picture: downloadURL,
-                            // });
+                            await setDoc(doc(db, "users", result.user.uid), {
+                                username: name,
+                                email: email,
+                                profile_picture: downloadURL,
+                            });
                         }
                     );
                 }
