@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { auth, storage, db } from "../../firebase/config";
 
 import Button from "../../components/Button";
@@ -22,11 +22,14 @@ function SignUp() {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [file, setFile] = useState();
     const [avatar, setAvatar] = useState(image.addImage);
     const [error, setError] = useState(false);
 
     const handlePreviewAvatar = (e) => {
         let file = e.target.files[0];
+        setFile(file);
+        // preview image to interface
         if (!file) return;
         setAvatar(URL.createObjectURL(file));
     };
@@ -40,7 +43,7 @@ function SignUp() {
                 password
             );
             const storageRef = ref(storage, name);
-            const uploadTask = uploadBytesResumable(storageRef, avatar);
+            const uploadTask = uploadBytesResumable(storageRef, file);
             uploadTask.on(
                 (error) => {
                     setError(true);
@@ -48,7 +51,7 @@ function SignUp() {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
-                            await setDoc(doc(db, "users", result.user.uid), {
+                            await addDoc(collection(db, "users", result.user), {
                                 username: name,
                                 email: email,
                                 profile_picture: downloadURL,
