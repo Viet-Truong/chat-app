@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { auth, storage, db } from "../../firebase/config";
 import { doc, setDoc } from "firebase/firestore";
+import { auth, storage, db } from "../../firebase/config";
 
 import Button from "../../components/Button";
 import Image from "../../components/Images";
@@ -48,14 +48,14 @@ function SignUp() {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
-                            await updateProfile(result.user, {
-                                name,
-                                photoURL: downloadURL,
-                            });
                             await setDoc(doc(db, "users", result.user.uid), {
                                 username: name,
                                 email: email,
                                 profile_picture: downloadURL,
+                            });
+                            await updateProfile(result.user, {
+                                name,
+                                photoURL: downloadURL,
                             });
                         }
                     );
