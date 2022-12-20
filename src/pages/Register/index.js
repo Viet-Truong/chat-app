@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { auth, storage, db } from "../../firebase/config";
 
 import Button from "../../components/Button";
@@ -51,9 +51,12 @@ function SignUp() {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
-                            await addDoc(collection(db, "users", result.user), {
-                                username: name,
-                                email: email,
+                            console.log("123");
+                            //uid undefine
+                            await setDoc(doc(db, "users", result.user.uid), {
+                                uid: result.user.uid,
+                                name,
+                                email,
                                 profile_picture: downloadURL,
                             });
                             await updateProfile(result.user, {
