@@ -53,8 +53,8 @@ function SignUp() {
                         async (downloadURL) => {
                             console.log("123");
                             //uid undefine
-                            await setDoc(doc(db, "users", result.user.uid), {
-                                uid: result.user.uid,
+                            await setDoc(doc(db, "users", 2), {
+                                uid: 2,
                                 name,
                                 email,
                                 profile_picture: downloadURL,
@@ -120,9 +120,7 @@ function SignUp() {
                                 style={{ display: "none" }}
                                 id="avatar"
                                 type="file"
-                                // value={password}
                                 onChange={handlePreviewAvatar}
-                                // placeholder="Enter your password"
                             />
                         </div>
                         <button className={cx("btn-signup")} onClick={submit}>
