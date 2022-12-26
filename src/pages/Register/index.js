@@ -25,8 +25,6 @@ function SignUp() {
     const [file, setFile] = useState();
     const [avatar, setAvatar] = useState(image.addImage);
     const [error, setError] = useState(false);
-    const [downloadURL, setDownloadURL] = useState();
-    const [idUser, setIdUser] = useState(1);
 
     const handlePreviewAvatar = (e) => {
         let file = e.target.files[0];
@@ -39,11 +37,12 @@ function SignUp() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const result = createUserWithEmailAndPassword(
+            const result = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
+            console.log(result.user.uid);
             const storageRef = ref(storage, name);
             const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -56,24 +55,21 @@ function SignUp() {
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            setDownloadURL(downloadURL);
+                            await updateProfile(result.user, {
+                                displayName: name,
+                                photoURL: downloadURL,
+                            });
+                            await setDoc(doc(db, "users", result.user.uid), {
+                                uid: result.user.uid,
+                                name,
+                                email,
+                                password,
+                                profile_picture: downloadURL,
+                            });
                         }
                     );
                 }
             );
-            await updateProfile(result.user, {
-                displayName: name,
-                photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "users", `${idUser}`), {
-                uid: `${idUser}`,
-                name,
-                email,
-                password,
-                profile_picture: downloadURL,
-            });
-            setIdUser((prev) => prev + 1);
         } catch (error) {
             setError(true);
         }
