@@ -25,6 +25,8 @@ function SignUp() {
     const [file, setFile] = useState();
     const [avatar, setAvatar] = useState(image.addImage);
     const [error, setError] = useState(false);
+    const [downloadURL, setDownloadURL] = useState();
+    const [idUser, setIdUser] = useState(1);
 
     const handlePreviewAvatar = (e) => {
         let file = e.target.files[0];
@@ -42,32 +44,32 @@ function SignUp() {
                 email,
                 password
             );
-            console.log(result);
             const storageRef = ref(storage, name);
             const uploadTask = uploadBytesResumable(storageRef, file);
-            await setDoc(doc(db, "users", "3"), {
-                uid: "3",
+
+            uploadTask.on(
+                (error) => {
+                    // Handle unsuccessful uploads
+                },
+                () => {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        async (downloadURL) => {
+                            console.log("File available at", downloadURL);
+                            setDownloadURL(downloadURL);
+                        }
+                    );
+                }
+            );
+            await setDoc(doc(db, "users", `${idUser}`), {
+                uid: `${idUser}`,
                 name,
                 email,
-                // profile_picture: downloadURL,
+                password,
+                profile_picture: downloadURL,
             });
-            // uploadTask.on(
-            //     (error) => {
-            //         setError(true);
-            //     },
-            //     () => {
-            //         console.log(123);
-            //         getDownloadURL(uploadTask.snapshot.ref).then(
-            //             async (downloadURL) => {
-            //                 console.log(downloadURL);
-            //                 await updateProfile(result.user, {
-            //                     name,
-            //                     photoURL: downloadURL,
-            //                 });
-            //             }
-            //         );
-            //     }
-            // );
+            setIdUser((prev) => prev + 1);
         } catch (error) {
             setError(true);
         }
