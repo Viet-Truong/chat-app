@@ -42,31 +42,32 @@ function SignUp() {
                 email,
                 password
             );
+            console.log(result);
             const storageRef = ref(storage, name);
             const uploadTask = uploadBytesResumable(storageRef, file);
-            uploadTask.on(
-                (error) => {
-                    setError(true);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then(
-                        async (downloadURL) => {
-                            console.log("123");
-                            //uid undefine
-                            await setDoc(doc(db, "users", 2), {
-                                uid: 2,
-                                name,
-                                email,
-                                profile_picture: downloadURL,
-                            });
-                            await updateProfile(result.user, {
-                                name,
-                                photoURL: downloadURL,
-                            });
-                        }
-                    );
-                }
-            );
+            await setDoc(doc(db, "users", "3"), {
+                uid: "3",
+                name,
+                email,
+                // profile_picture: downloadURL,
+            });
+            // uploadTask.on(
+            //     (error) => {
+            //         setError(true);
+            //     },
+            //     () => {
+            //         console.log(123);
+            //         getDownloadURL(uploadTask.snapshot.ref).then(
+            //             async (downloadURL) => {
+            //                 console.log(downloadURL);
+            //                 await updateProfile(result.user, {
+            //                     name,
+            //                     photoURL: downloadURL,
+            //                 });
+            //             }
+            //         );
+            //     }
+            // );
         } catch (error) {
             setError(true);
         }
