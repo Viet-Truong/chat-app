@@ -49,7 +49,7 @@ function SignUp() {
 
             uploadTask.on(
                 (error) => {
-                    // Handle unsuccessful uploads
+                    setError(true);
                 },
                 () => {
                     // Handle successful uploads on complete
@@ -62,6 +62,10 @@ function SignUp() {
                     );
                 }
             );
+            await updateProfile(result.user, {
+                displayName: name,
+                photoURL: downloadURL,
+            });
             await setDoc(doc(db, "users", `${idUser}`), {
                 uid: `${idUser}`,
                 name,

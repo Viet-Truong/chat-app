@@ -1,5 +1,6 @@
 import classnames from "classnames/bind";
 import styles from "./Navbar.module.scss";
+import { signOut } from "firebase/auth";
 
 import Image from "../Images";
 import Button from "../Button";
@@ -11,7 +12,9 @@ function Navbar() {
             <span className={cx("logo")}>My chat app</span>
             <div className={cx("user")}>
                 <Image src="" alt="" className={cx("avatar")} />
-                <Button className={cx("logout")}>Log out</Button>
+                <Button className={cx("logout")} onClick={() => signOut()}>
+                    Log out
+                </Button>
             </div>
         </div>
     );
