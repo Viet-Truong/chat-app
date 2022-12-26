@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 
 import Image from "../Images";
 import Button from "../Button";
+import { auth } from "../../firebase/config";
 
 const cx = classnames.bind(styles);
 function Navbar() {
@@ -12,7 +13,7 @@ function Navbar() {
             <span className={cx("logo")}>My chat app</span>
             <div className={cx("user")}>
                 <Image src="" alt="" className={cx("avatar")} />
-                <Button className={cx("logout")} onClick={() => signOut()}>
+                <Button className={cx("logout")} onClick={() => signOut(auth)}>
                     Log out
                 </Button>
             </div>

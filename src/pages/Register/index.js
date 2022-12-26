@@ -42,7 +42,6 @@ function SignUp() {
                 email,
                 password
             );
-            console.log(result.user.uid);
             const storageRef = ref(storage, name);
             const uploadTask = uploadBytesResumable(storageRef, file);
 
