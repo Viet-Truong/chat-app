@@ -65,6 +65,10 @@ function SignUp() {
                                 password,
                                 profile_picture: downloadURL,
                             });
+                            await setDoc(
+                                doc(db, "userChats", result.user.uid),
+                                {}
+                            );
                         }
                     );
                 }
