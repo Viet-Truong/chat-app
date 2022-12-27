@@ -1,32 +1,23 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
+import config from "../../config";
+import { auth } from "../../firebase/config";
+
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import config from "../../config";
 
 const cx = classNames.bind(styles);
 function Login() {
     const navigate = useNavigate();
+    const [error, setError] = useState(false);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-        });
 
     // useEffect(() => {
     //     if (auth) {
@@ -34,8 +25,14 @@ function Login() {
     //     }
     // }, [navigate, auth]);
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate(config.routes.home);
+        } catch (error) {
+            setError(true);
+        }
     };
     return (
         <div className={cx("wrapper")}>
