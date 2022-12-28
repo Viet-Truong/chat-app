@@ -9,10 +9,11 @@ import { auth, storage, db } from "../../firebase/config";
 
 import Button from "../../components/Button";
 import Image from "../../components/Images";
+import image from "../../assets/images";
+
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import image from "../../assets/images";
 
 const cx = classNames.bind(styles);
 function SignUp() {

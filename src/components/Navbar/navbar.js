@@ -1,11 +1,11 @@
 import classnames from "classnames/bind";
 import styles from "./Navbar.module.scss";
-import { signOut } from "firebase/auth";
+import { useContext } from "react";
 
+import { signOut } from "firebase/auth";
 import Image from "../Images";
 import Button from "../Button";
 import { auth } from "../../firebase/config";
-import { useContext } from "react";
 import { AuthContext } from "./../../context/AuthContext";
 
 const cx = classnames.bind(styles);

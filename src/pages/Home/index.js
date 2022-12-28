@@ -1,5 +1,6 @@
 import classnames from "classnames/bind";
 import styles from "./Home.module.scss";
+
 import Sidebar from "../../components/Sidebar/sidebar";
 import Chat from "../../components/Chat/chat";
 import Profile from "../../components/Profile/profile";
