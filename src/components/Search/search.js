@@ -65,7 +65,7 @@ function Search() {
                     onChange={(e) => setUsername(e.target.value)}
                 />
             </div>
-            {error && <span>User not found!</span>}
+            {error && <div>User not found!</div>}
             {user && (
                 <div className={cx("user-chat")} onClick={handleSelect}>
                     <div className={cx("user-avatar")}>
