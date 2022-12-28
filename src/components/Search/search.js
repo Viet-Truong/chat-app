@@ -38,7 +38,7 @@ function Search() {
     const handleKeydown = (e) => {
         e.code === "Enter" && handleSearch();
     };
-    const handleSelect = async (e) => {
+    const handleSelect = async () => {
         // check whether the group (chats in firestore) exists, if not create
         const combineID =
             currentUser.uid > user.uid
@@ -60,6 +60,7 @@ function Search() {
                     },
                     [combineID + ".date"]: serverTimestamp(),
                 });
+
                 await updateDoc(doc(db, "userChats", user.uid), {
                     [combineID + ".userInfo"]: {
                         uid: currentUser.uid,
@@ -69,10 +70,9 @@ function Search() {
                     [combineID + ".date"]: serverTimestamp(),
                 });
             }
-        } catch (err) {
-            setUser(null);
-            setUsername("");
-        }
+        } catch (err) {}
+        setUser(null);
+        setUsername("");
     };
     return (
         <div className={cx("wrapper")}>

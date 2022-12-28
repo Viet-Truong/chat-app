@@ -16,8 +16,8 @@ function Navbar() {
             <span className={cx("logo")}>My chat app</span>
             <div className={cx("user")}>
                 <Image
-                    src={currentUser && currentUser.photoURL}
-                    alt={currentUser && currentUser.displayName}
+                    src={currentUser.photoURL}
+                    alt={currentUser.displayName}
                     className={cx("avatar")}
                 />
                 <Button className={cx("logout")} onClick={() => signOut(auth)}>

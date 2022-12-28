@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -9,7 +9,6 @@ import { auth, storage, db } from "../../firebase/config";
 
 import Button from "../../components/Button";
 import Image from "../../components/Images";
-// import config from "../../config";
 import { Facebook, Google } from "../../components/Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +17,6 @@ import image from "../../assets/images";
 const cx = classNames.bind(styles);
 function SignUp() {
     const navigate = useNavigate();
-    const inputAvatarRef = useRef();
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -54,10 +52,12 @@ function SignUp() {
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
+                            // update profile
                             await updateProfile(result.user, {
                                 displayName: name,
                                 photoURL: downloadURL,
                             });
+                            // create user on firestore
                             await setDoc(doc(db, "users", result.user.uid), {
                                 uid: result.user.uid,
                                 name,
@@ -65,10 +65,12 @@ function SignUp() {
                                 password,
                                 profile_picture: downloadURL,
                             });
+                            // create empty user chats on firestore
                             await setDoc(
                                 doc(db, "userChats", result.user.uid),
                                 {}
                             );
+                            navigate("/");
                         }
                     );
                 }
@@ -122,7 +124,6 @@ function SignUp() {
                                 Add your avatar
                             </label>
                             <input
-                                ref={inputAvatarRef}
                                 style={{ display: "none" }}
                                 id="avatar"
                                 type="file"

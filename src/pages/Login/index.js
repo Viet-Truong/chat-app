@@ -5,7 +5,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
-import config from "../../config";
 import { auth } from "../../firebase/config";
 
 import { Facebook, Google } from "../../components/Icons";
@@ -19,17 +18,11 @@ function Login() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    // useEffect(() => {
-    //     if (auth) {
-    //         navigate(config.routes.home);
-    //     }
-    // }, [navigate, auth]);
-
     const submit = async (e) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            navigate(config.routes.home);
+            navigate("/");
         } catch (error) {
             setError(true);
         }

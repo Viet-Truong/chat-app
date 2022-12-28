@@ -24,8 +24,8 @@ function ListChat() {
                 unSub();
             };
         };
-        currentUser && currentUser.uid && getChats();
-    }, [currentUser && currentUser.uid]);
+        currentUser.uid && getChats();
+    }, [currentUser.uid]);
     console.log(Object.entries(chats));
     return (
         <div className={cx("wrapper")}>
