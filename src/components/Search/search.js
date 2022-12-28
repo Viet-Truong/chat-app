@@ -7,8 +7,10 @@ import {
     where,
     getDocs,
     doc,
+    getDoc,
     setDoc,
     updateDoc,
+    serverTimestamp,
 } from "firebase/firestore";
 
 import { db } from "../../firebase/config";
@@ -43,15 +45,33 @@ function Search() {
                 ? currentUser.uid + user.uid
                 : user.uid + currentUser.uid;
         try {
-            const res = await getDocs(db, "chats", combineID);
+            const res = await getDoc(doc(db, "chats", combineID));
             if (!res.exists()) {
                 // create a chat in chats room
                 await setDoc(doc(db, "chats", combineID), {
                     messages: [],
                 });
+                // create user chats
+                await updateDoc(doc(db, "userChats", currentUser.uid), {
+                    [combineID + ".userInfo"]: {
+                        uid: user.uid,
+                        name: user.name,
+                        profile_picture: user.profile_picture,
+                    },
+                    [combineID + ".date"]: serverTimestamp(),
+                });
+                await updateDoc(doc(db, "userChats", user.uid), {
+                    [combineID + ".userInfo"]: {
+                        uid: currentUser.uid,
+                        name: currentUser.name,
+                        profile_picture: currentUser.profile_picture,
+                    },
+                    [combineID + ".date"]: serverTimestamp(),
+                });
             }
         } catch (err) {
-            // setError(true)
+            setUser(null);
+            setUsername("");
         }
     };
     return (
@@ -62,6 +82,7 @@ function Search() {
                     className={cx("search")}
                     placeholder="Find a user"
                     onKeyDown={handleKeydown}
+                    value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
             </div>
