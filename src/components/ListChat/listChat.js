@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ListChat.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 
 import { db } from "../../firebase/config";
@@ -10,7 +10,7 @@ import { AuthContext } from "./../../context/AuthContext";
 const cx = classNames.bind(styles);
 function ListChat() {
     const { currentUser } = useContext(AuthContext);
-    const [chats, setChats] = useState();
+    const [chats, setChats] = useState([]);
 
     useEffect(() => {
         const getChats = () => {
@@ -24,11 +24,12 @@ function ListChat() {
                 unSub();
             };
         };
-        currentUser.uid && getChats();
-    }, [currentUser.uid]);
+        currentUser && currentUser.uid && getChats();
+    }, [currentUser && currentUser.uid]);
+    console.log(Object.entries(chats));
     return (
         <div className={cx("wrapper")}>
-            {Object.entries(chats).map((chat) => {
+            {Object.entries(chats)?.map((chat) => (
                 <div className={cx("user-chat")} key={chat[0]}>
                     <div className={cx("user-avatar")}>
                         <Image
@@ -41,11 +42,11 @@ function ListChat() {
                             {chat[1].userInfo.name}
                         </p>
                         <p className={cx("user-last-chat")}>
-                            {chat[1].userInfo.lastMessage.text}
+                            {chat[1].userInfo.lastMessage?.text}
                         </p>
                     </div>
-                </div>;
-            })}
+                </div>
+            ))}
         </div>
     );
 }
