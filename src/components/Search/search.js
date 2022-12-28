@@ -27,7 +27,7 @@ function Search() {
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                setUser(doc.data);
+                setUser(doc.data());
             });
         } catch (err) {
             setError(true);
@@ -69,7 +69,10 @@ function Search() {
             {user && (
                 <div className={cx("user-chat")} onClick={handleSelect}>
                     <div className={cx("user-avatar")}>
-                        <Image src={user.photoURL} className={cx("avatar")} />
+                        <Image
+                            src={user.profile_picture}
+                            className={cx("avatar")}
+                        />
                     </div>
                     <div className={cx("user-chat-info")}>
                         <span className={cx("user-name")}>{user.name}</span>
