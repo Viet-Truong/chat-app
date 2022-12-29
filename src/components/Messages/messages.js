@@ -2,10 +2,9 @@ import classNames from "classnames/bind";
 import styles from "./Messages.module.scss";
 
 import Message from "../Message/message";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ChatContext } from "./../../context/ChatContext";
-import { onSnapshot } from "firebase/firestore";
-import { doc } from "firebase/firestore";
+import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 const cx = classNames.bind(styles);
@@ -18,7 +17,9 @@ function Messages() {
         const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
             doc.exists() && setMessages(doc.data().messages);
         });
-        return () => unSub();
+        return () => {
+            unSub();
+        };
     }, [data.chatId]);
     return (
         <div className={cx("wrapper")}>
