@@ -89,6 +89,7 @@ function Input() {
                 type="text"
                 placeholder="Type something ..."
                 className={cx("input")}
+                value={text}
                 onChange={(e) => setText(e.target.value)}
             />
             <div className={cx("send")}>

@@ -34,28 +34,31 @@ function ListChat() {
     };
     return (
         <div className={cx("wrapper")}>
-            {Object.entries(chats)?.map((chat) => (
-                <div
-                    className={cx("user-chat")}
-                    key={chat[0]}
-                    onClick={() => handleSelect(chat[1].userInfo)}
-                >
-                    <div className={cx("user-avatar")}>
-                        <Image
-                            src={chat[1].userInfo.profile_picture}
-                            className={cx("avatar")}
-                        />
+            {/* use sort to sort user chat recently */}
+            {Object.entries(chats)
+                ?.sort((a, b) => b[1].date - a[1].date)
+                .map((chat) => (
+                    <div
+                        className={cx("user-chat")}
+                        key={chat[0]}
+                        onClick={() => handleSelect(chat[1].userInfo)}
+                    >
+                        <div className={cx("user-avatar")}>
+                            <Image
+                                src={chat[1].userInfo.profile_picture}
+                                className={cx("avatar")}
+                            />
+                        </div>
+                        <div className={cx("user-chat-info")}>
+                            <p className={cx("user-name")}>
+                                {chat[1].userInfo.name}
+                            </p>
+                            <p className={cx("user-last-chat")}>
+                                {chat[1].lastMessage?.text}
+                            </p>
+                        </div>
                     </div>
-                    <div className={cx("user-chat-info")}>
-                        <p className={cx("user-name")}>
-                            {chat[1].userInfo.name}
-                        </p>
-                        <p className={cx("user-last-chat")}>
-                            {chat[1].lastMessage?.text}
-                        </p>
-                    </div>
-                </div>
-            ))}
+                ))}
         </div>
     );
 }
