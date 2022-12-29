@@ -1,7 +1,13 @@
 import classNames from "classnames/bind";
 import styles from "./Input.module.scss";
 import { useContext, useState } from "react";
-import { arrayUnion, updateDoc, doc, Timestamp } from "firebase/firestore";
+import {
+    arrayUnion,
+    updateDoc,
+    doc,
+    Timestamp,
+    serverTimestamp,
+} from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 
@@ -60,6 +66,22 @@ function Input() {
                 }),
             });
         }
+
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+            [data.chatId + ".lastMessage"]: {
+                text,
+            },
+            [data.chatId + ".date"]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(db, "userChats", data.user.uid), {
+            [data.chatId + ".lastMessage"]: {
+                text,
+            },
+            [data.chatId + ".date"]: serverTimestamp(),
+        });
+        setText("");
+        setImage(null);
     };
     return (
         <div className={cx("wrapper")}>

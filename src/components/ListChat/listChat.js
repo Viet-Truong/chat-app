@@ -51,7 +51,7 @@ function ListChat() {
                             {chat[1].userInfo.name}
                         </p>
                         <p className={cx("user-last-chat")}>
-                            {chat[1].userInfo.lastMessage?.text}
+                            {chat[1].lastMessage?.text}
                         </p>
                     </div>
                 </div>
