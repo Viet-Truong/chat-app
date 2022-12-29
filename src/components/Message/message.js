@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./Message.module.scss";
 
 import Image from "../Images";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "./../../context/AuthContext";
 import { ChatContext } from "./../../context/ChatContext";
 
@@ -10,14 +10,32 @@ const cx = classNames.bind(styles);
 function Message({ message }) {
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
+    const ref = useRef();
+
+    // useEffect(() => {
+    //     ref.current?.scrollIntoView({ behavior: "smooth" });
+    // }, [message]);
     return (
-        <div className={cx("wrapper-message")}>
-            <div className={cx("message", "owner")}>
+        <div className={cx("wrapper-message")} ref={ref}>
+            <div
+                className={cx(
+                    "message",
+                    `${message.senderId === currentUser.uid && "owner"}`
+                )}
+            >
                 <div className={cx("message-info")}>
-                    <Image src={""} className={cx("avatar")} />
+                    <Image
+                        src={
+                            message.senderId === currentUser.uid
+                                ? currentUser.profile_picture
+                                : data.user.profile_picture
+                        }
+                        className={cx("avatar")}
+                    />
                 </div>
                 <div className={cx("message-content")}>
-                    <p className={cx("message-p")}>Hello</p>
+                    <p className={cx("message-p")}>{message.text}</p>
+                    {message.image && <Image src={message.image} />}
                 </div>
             </div>
         </div>

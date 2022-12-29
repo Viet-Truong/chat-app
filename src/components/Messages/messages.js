@@ -21,10 +21,11 @@ function Messages() {
             unSub();
         };
     }, [data.chatId]);
+    console.log(data.chatId);
     return (
         <div className={cx("wrapper")}>
             {messages.map((m) => (
-                <Message Message={m} key={m.id} />
+                <Message message={m} key={m.id} />
             ))}
         </div>
     );

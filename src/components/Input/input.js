@@ -11,7 +11,6 @@ import {
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 
-import Image from "../Images";
 import Button from "../Button";
 import { AuthContext } from "./../../context/AuthContext";
 import { ChatContext } from "./../../context/ChatContext";
