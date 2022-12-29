@@ -2,9 +2,14 @@ import classNames from "classnames/bind";
 import styles from "./Message.module.scss";
 
 import Image from "../Images";
+import { useContext } from "react";
+import { AuthContext } from "./../../context/AuthContext";
+import { ChatContext } from "./../../context/ChatContext";
 
 const cx = classNames.bind(styles);
-function Message() {
+function Message({ message }) {
+    const { currentUser } = useContext(AuthContext);
+    const { data } = useContext(ChatContext);
     return (
         <div className={cx("wrapper-message")}>
             <div className={cx("message", "owner")}>

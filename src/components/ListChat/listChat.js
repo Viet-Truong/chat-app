@@ -6,10 +6,12 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import Image from "../Images";
 import { AuthContext } from "./../../context/AuthContext";
+import { ChatContext } from "./../../context/ChatContext";
 
 const cx = classNames.bind(styles);
 function ListChat() {
     const { currentUser } = useContext(AuthContext);
+    const { dispatch } = useContext(ChatContext);
     const [chats, setChats] = useState([]);
 
     useEffect(() => {
@@ -26,11 +28,18 @@ function ListChat() {
         };
         currentUser.uid && getChats();
     }, [currentUser.uid]);
-    console.log(Object.entries(chats));
+
+    const handleSelect = (user) => {
+        dispatch({ type: "CHANGE_USER", payload: user });
+    };
     return (
         <div className={cx("wrapper")}>
             {Object.entries(chats)?.map((chat) => (
-                <div className={cx("user-chat")} key={chat[0]}>
+                <div
+                    className={cx("user-chat")}
+                    key={chat[0]}
+                    onClick={() => handleSelect(chat[1].userInfo)}
+                >
                     <div className={cx("user-avatar")}>
                         <Image
                             src={chat[1].userInfo.profile_picture}

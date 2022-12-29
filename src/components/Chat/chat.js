@@ -6,13 +6,16 @@ import Input from "../Input/input";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { ChatContext } from "./../../context/ChatContext";
 
 const cx = classNames.bind(styles);
 function Chat() {
+    const { data } = useContext(ChatContext);
     return (
         <div className={cx("wrapper")}>
             <div className={cx("header")}>
-                <h4 className={cx("name-user")}>Viet Truong</h4>
+                <h4 className={cx("name-user")}>{data.user?.name}</h4>
                 <div className={cx("action")}>
                     <FontAwesomeIcon icon={faVideo} />
                 </div>
