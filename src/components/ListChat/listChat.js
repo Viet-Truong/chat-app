@@ -10,9 +10,9 @@ import { ChatContext } from "./../../context/ChatContext";
 
 const cx = classNames.bind(styles);
 function ListChat() {
+    const [chats, setChats] = useState([]);
     const { currentUser } = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
-    const [chats, setChats] = useState([]);
 
     useEffect(() => {
         const getChats = () => {

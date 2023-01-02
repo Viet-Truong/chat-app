@@ -73,12 +73,12 @@ function Input() {
             [data.chatId + ".date"]: serverTimestamp(),
         });
 
-        await updateDoc(doc(db, "userChats", data.user.uid), {
-            [data.chatId + ".lastMessage"]: {
-                text,
-            },
-            [data.chatId + ".date"]: serverTimestamp(),
-        });
+        // await updateDoc(doc(db, "userChats", data.user.uid), {
+        //     [data.chatId + ".lastMessage"]: {
+        //         text,
+        //     },
+        //     [data.chatId + ".date"]: serverTimestamp(),
+        // });
         setText("");
         setImage(null);
     };

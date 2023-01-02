@@ -21,7 +21,6 @@ function Messages() {
             unSub();
         };
     }, [data.chatId]);
-    console.log(data.chatId);
     return (
         <div className={cx("wrapper")}>
             {messages.map((m) => (
