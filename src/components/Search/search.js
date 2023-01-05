@@ -23,9 +23,11 @@ function Search() {
     const [username, setUsername] = useState("");
     const [user, setUser] = useState(null);
     const [error, setError] = useState(false);
+    console.log(user, currentUser);
 
     const handleSearch = async () => {
         const q = query(collection(db, "users"), where("name", "==", username));
+
         try {
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
@@ -39,6 +41,7 @@ function Search() {
         e.code === "Enter" && handleSearch();
     };
     const handleSelect = async () => {
+        console.log(user);
         // check whether the group (chats in firestore) exists, if not create
         const combineID =
             currentUser.uid > user.uid
@@ -48,10 +51,9 @@ function Search() {
             const res = await getDoc(doc(db, "chats", combineID));
             if (!res.exists()) {
                 // create a chat in chats room
-                await setDoc(doc(db, "chats", combineID), {
-                    messages: [],
-                });
-                // create user chats
+                await setDoc(doc(db, "chats", combineID), { messages: [] });
+
+                //create user chats
                 await updateDoc(doc(db, "userChats", currentUser.uid), {
                     [combineID + ".userInfo"]: {
                         uid: user.uid,
@@ -64,8 +66,8 @@ function Search() {
                 await updateDoc(doc(db, "userChats", user.uid), {
                     [combineID + ".userInfo"]: {
                         uid: currentUser.uid,
-                        name: currentUser.name,
-                        profile_picture: currentUser.profile_picture,
+                        name: currentUser.displayName,
+                        profile_picture: currentUser.photoURL,
                     },
                     [combineID + ".date"]: serverTimestamp(),
                 });
