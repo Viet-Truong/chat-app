@@ -27,7 +27,7 @@ function Message({ message }) {
                     <Image
                         src={
                             message.senderId === currentUser.uid
-                                ? currentUser.profile_picture
+                                ? currentUser.photoURL
                                 : data.user.profile_picture
                         }
                         className={cx("avatar")}
