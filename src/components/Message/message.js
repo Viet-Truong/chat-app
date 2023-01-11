@@ -12,9 +12,6 @@ function Message({ message }) {
     const { data } = useContext(ChatContext);
     const ref = useRef();
 
-    // useEffect(() => {
-    //     ref.current?.scrollIntoView({ behavior: "smooth" });
-    // }, [message]);
     return (
         <div className={cx("wrapper-message")} ref={ref}>
             <div
