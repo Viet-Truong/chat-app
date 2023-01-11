@@ -36,6 +36,9 @@
 
     &.owner {
         flex-direction: row-reverse;
+        .message-content {
+            align-items: flex-end;
+        }
         p {
             max-width: max-content;
             background-color: #8da4f1;
