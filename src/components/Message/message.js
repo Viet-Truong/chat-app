@@ -35,7 +35,12 @@ function Message({ message }) {
                 </div>
                 <div className={cx("message-content")}>
                     <p className={cx("message-p")}>{message.text}</p>
-                    {message.image && <Image src={message.image} />}
+                    {message.img && (
+                        <Image
+                            src={message.img}
+                            className={cx("message-img")}
+                        />
+                    )}
                 </div>
             </div>
         </div>
