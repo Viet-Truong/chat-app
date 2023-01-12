@@ -50,8 +50,35 @@
     margin-top: 15px;
     color: var(--white-color);
 }
-.share-media {
+
+.description {
     margin-top: 70px;
+
+    .member {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+
+        .avatar-member {
+            width: 25px;
+            height: 25px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .name-member {
+            margin-left: -150px;
+            font-size: 1.6rem;
+            color: var(--white-color);
+        }
+        .more-member {
+            color: var(--white-color);
+        }
+    }
+}
+
+.share-media {
+    margin-top: 30px;
     
 }
 .title {
