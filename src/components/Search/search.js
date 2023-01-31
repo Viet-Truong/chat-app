@@ -37,7 +37,7 @@ function Search() {
             setError(true);
         }
     };
-    const handleKeydown = (e) => {
+    const handleKeydown = (e) => { 
         e.code === "Enter" && handleSearch();
     };
     const handleSelect = async () => {
@@ -56,18 +56,20 @@ function Search() {
                 //create user chats
                 await updateDoc(doc(db, "userChats", currentUser.uid), {
                     [combineID + ".userInfo"]: {
-                        uid: user.uid,
-                        name: user.name,
-                        profile_picture: user.profile_picture,
+                        [combineID + user.uid]: {
+                            name: user.name,
+                            profile_picture: user.profile_picture,
+                        },
                     },
                     [combineID + ".date"]: serverTimestamp(),
                 });
 
                 await updateDoc(doc(db, "userChats", user.uid), {
                     [combineID + ".userInfo"]: {
-                        uid: currentUser.uid,
-                        name: currentUser.displayName,
-                        profile_picture: currentUser.photoURL,
+                        [combineID + currentUser.uid]: {
+                            name: currentUser.displayName,
+                            profile_picture: currentUser.photoURL,
+                        },
                     },
                     [combineID + ".date"]: serverTimestamp(),
                 });
