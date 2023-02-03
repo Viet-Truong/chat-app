@@ -14,7 +14,6 @@ function Home() {
                 <Sidebar />
                 <Chat />
                 <Profile />
-                <ModalUserInfo />
             </div>
         </div>
     );

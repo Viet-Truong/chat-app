@@ -7,33 +7,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
-function Modal({ handleClose, isClose }) {
+function Modal({ handleClose, isClose, data }) {
     const toggleClose = isClose ? "close" : "";
     return (
         <div className={cx("modal", `${toggleClose}`)}>
             <div className={cx("wrapper-modal")}>
                 <div className={cx("inner-modal")}>
-                    <FontAwesomeIcon
-                        icon={faXmark}
-                        className={cx("icon-close")}
-                        onClick={handleClose}
-                    />
+                    <div className={cx("header")}>
+                        <h2 className={cx("title")}>Info user</h2>
+                        <FontAwesomeIcon
+                            icon={faXmark}
+                            className={cx("icon-close")}
+                            onClick={handleClose}
+                        />
+                    </div>
                     <div className={cx("content")}>
-                        <Image src={""} className={cx("avatar")} />
+                        <Image src={data.photoURL} className={cx("avatar")} />
                         <div className={cx("info")}>
                             <p className={cx("uid")}>
                                 UID:
-                                <span className={cx("text")}>123132123</span>
+                                <span className={cx("text")}>{data.uid}</span>
                             </p>
                             <p className={cx("name")}>
                                 Name:
-                                <span className={cx("text")}>Truong</span>
+                                <span className={cx("text")}>
+                                    {data.displayName}
+                                </span>
                             </p>
                             <p className={cx("email")}>
                                 Email:
-                                <span className={cx("text")}>
-                                    viettrung@gmail.com
-                                </span>
+                                <span className={cx("text")}>{data.email}</span>
                             </p>
                         </div>
                     </div>
