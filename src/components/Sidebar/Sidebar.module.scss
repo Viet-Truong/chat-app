@@ -13,6 +13,7 @@
 .wrapper {
     background-color: #3e3c61;
     width: 30%;
+    position: relative;
 
     @include mobile {
         width: 100%;
@@ -21,4 +22,18 @@
 
 .navbar {
     background-color: #2f2d52;
+}
+
+.newGroup {
+    display: flex;
+    justify-content: center;
+    color: var(--white-color);
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 20px;
+    
+    p {
+        margin-left: 10px;
+    }
 }

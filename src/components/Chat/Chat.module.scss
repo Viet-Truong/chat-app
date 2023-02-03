@@ -31,4 +31,15 @@
     padding: 10px 20px;
     background-color: #3e3c61;
     color: var(--white-color);
+
+    .info {
+        display: flex;
+        align-items: center;
+    }
+    .profile_picture {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
