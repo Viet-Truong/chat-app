@@ -22,7 +22,7 @@ function Modal({ handleClose, isClose, data }) {
                         />
                     </div>
                     <div className={cx("content")}>
-                        <Image src={data.photoURL} className={cx("avatar")} />
+                        <Image src={data.image} className={cx("avatar")} />
                         <div className={cx("info")}>
                             <p className={cx("uid")}>
                                 UID:
@@ -30,9 +30,7 @@ function Modal({ handleClose, isClose, data }) {
                             </p>
                             <p className={cx("name")}>
                                 Name:
-                                <span className={cx("text")}>
-                                    {data.displayName}
-                                </span>
+                                <span className={cx("text")}>{data.name}</span>
                             </p>
                             <p className={cx("email")}>
                                 Email:

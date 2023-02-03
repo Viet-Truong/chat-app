@@ -13,6 +13,12 @@ import { AuthContext } from "./../../context/AuthContext";
 const cx = classnames.bind(styles);
 function Navbar() {
     const { currentUser } = useContext(AuthContext);
+    const dataUser = {
+        uid: currentUser.uid,
+        name: currentUser.displayName,
+        email: currentUser.email,
+        image: currentUser.photoURL,
+    };
     const [close, setClose] = useState(true);
     const handleClose = () => {
         setClose(true);
@@ -34,7 +40,7 @@ function Navbar() {
             <ModalUserInfo
                 isClose={close}
                 handleClose={handleClose}
-                data={currentUser}
+                data={dataUser}
             />
         </div>
     );
