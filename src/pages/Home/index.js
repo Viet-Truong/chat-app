@@ -1,6 +1,7 @@
 import classnames from "classnames/bind";
 import styles from "./Home.module.scss";
 
+import ModalUserInfo from "../../components/Modal/ModalUserInfo";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Chat from "../../components/Chat/chat";
 import Profile from "../../components/Profile/profile";
@@ -13,6 +14,7 @@ function Home() {
                 <Sidebar />
                 <Chat />
                 <Profile />
+                <ModalUserInfo />
             </div>
         </div>
     );
