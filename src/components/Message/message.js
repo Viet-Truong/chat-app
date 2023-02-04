@@ -33,10 +33,12 @@ function Message({ message }) {
                 <div className={cx("message-content")}>
                     <p className={cx("message-p")}>{message.text}</p>
                     {message.img && (
-                        <Image
-                            src={message.img}
-                            className={cx("message-img")}
-                        />
+                        <a href={message.img} target="_blank">
+                            <Image
+                                src={message.img}
+                                className={cx("message-img")}
+                            />
+                        </a>
                     )}
                 </div>
             </div>
